@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Feeling Movie Quotes</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #f0f0f0;
+        }
+        .container {
+            text-align: center;
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+        input {
+            padding: 10px;
+            width: 300px;
+            margin-bottom: 20px;
+        }
+        button {
+            padding: 10px 20px;
+            margin: 10px;
+            cursor: pointer;
+        }
+        #quoteDisplay {
+            margin-top: 30px;
+            font-style: italic;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Feeling Movie Quotes</h1>
+        <p>Type a feeling and get a related movie quote</p>
+        <input type="text" id="feelingInput" placeholder="Enter a feeling...">
+        <div>
+            <button id="getQuoteBtn">Get Quote</button>
+            <button id="randomQuoteBtn">Random Quote</button>
+        </div>
+        <div id="quoteDisplay"></div>
+    </div>
+    <script>
+        const quotes = {
+            happy: [
+                "Happiness can be found even in the darkest of times, if one only remembers to turn on the light. - Harry Potter",
+                "The greatest thing you'll ever learn is just to love and be loved in return. - Moulin Rouge"
+            ],
+            sad: [
+                "You have to let it all go, Neo. Fear, doubt, and disbelief. Free your mind. - The Matrix",
+                "Some people can't believe in themselves until someone else believes in them first. - Good Will Hunting"
+            ],
+            angry: [
+                "Roads? Where we're going, we don't need roads. - Back to the Future",
+                "Say 'hello' to my little friend! - Scarface"
+            ],
+            love: [
+                "To me, you are perfect. - Love Actually",
+                "I'm also just a girl, standing in front of a boy, asking him to love her. - Notting Hill"
+            ]
+        };
+    
+        function getQuote() {
+            const feeling = document.getElementById('feelingInput').value.toLowerCase();
+            const display = document.getElementById('quoteDisplay');
+            if (quotes[feeling] && quotes[feeling].length > 0) {
+                const quote = quotes[feeling][Math.floor(Math.random() * quotes[feeling].length)];
+                display.innerHTML = `<p>\"${quote}\"</p>`;
+            } else {
+                display.innerHTML = `<p>No quotes found for that feeling. Try another one!</p>`;
+            }
+        }
+    
+        function getRandomQuote() {
+            const allQuotes = Object.values(quotes).flat();
+            const quote = allQuotes[Math.floor(Math.random() * allQuotes.length)];
+            document.getElementById('quoteDisplay').innerHTML = `<p>\"${quote}\"</p>`;
+        }
+    
+        document.getElementById('getQuoteBtn').addEventListener('click', getQuote);
+        document.getElementById('randomQuoteBtn').addEventListener('click', getRandomQuote);
+    </script>
+    
+</body>
+</html>
