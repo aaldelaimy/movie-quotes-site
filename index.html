@@ -3,91 +3,247 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Feeling Movie Quotes</title>
+    <title>Movie Mood Quotes</title>
+    <!-- Add Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&family=Righteous&display=swap" rel="stylesheet">
+    <!-- Add Font Awesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
         body {
-            font-family: 'Arial', sans-serif;
+            font-family: 'Poppins', sans-serif;
+            min-height: 100vh;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             display: flex;
             justify-content: center;
             align-items: center;
-            height: 100vh;
-            margin: 0;
-            background-color: #f0f0f0;
+            padding: 20px;
         }
+
         .container {
             text-align: center;
+            background: rgba(255, 255, 255, 0.95);
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            max-width: 600px;
+            width: 90%;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .container::before {
+            content: '🎬';
+            position: absolute;
+            top: -20px;
+            right: -20px;
+            font-size: 80px;
+            opacity: 0.1;
+            transform: rotate(15deg);
+        }
+
+        h1 {
+            font-family: 'Righteous', cursive;
+            color: #4a4a4a;
+            margin-bottom: 20px;
+            font-size: 2.5em;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        p {
+            color: #666;
+            margin-bottom: 25px;
+            font-size: 1.1em;
+        }
+
+        .input-container {
+            position: relative;
+            margin-bottom: 30px;
+        }
+
+        input {
+            width: 100%;
+            max-width: 400px;
+            padding: 15px 20px;
+            border: none;
+            border-radius: 50px;
+            font-size: 1.1em;
+            background: #f0f0f0;
+            transition: all 0.3s ease;
+            box-shadow: inset 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        input:focus {
+            outline: none;
+            background: #ffffff;
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.3);
+        }
+
+        .button-container {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            margin-bottom: 30px;
+        }
+
+        button {
+            padding: 12px 25px;
+            border: none;
+            border-radius: 50px;
+            font-size: 1em;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        #getQuoteBtn {
+            background: #667eea;
+            color: white;
+        }
+
+        #randomQuoteBtn {
+            background: #764ba2;
+            color: white;
+        }
+
+        button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        button:active {
+            transform: translateY(0);
+        }
+
+        #quoteDisplay {
             background: white;
             padding: 30px;
-            border-radius: 10px;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            border-radius: 15px;
+            margin-top: 20px;
+            position: relative;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
         }
-        input {
-            padding: 10px;
-            width: 300px;
-            margin-bottom: 20px;
+
+        #quoteDisplay::before {
+            content: '"';
+            font-size: 4em;
+            position: absolute;
+            top: -10px;
+            left: 10px;
+            color: #667eea;
+            opacity: 0.2;
         }
-        button {
-            padding: 10px 20px;
-            margin: 10px;
-            cursor: pointer;
+
+        #quoteDisplay p {
+            font-size: 1.2em;
+            color: #333;
+            line-height: 1.6;
+            margin: 0;
+            position: relative;
+            z-index: 1;
         }
-        #quoteDisplay {
-            margin-top: 30px;
+
+        #quoteDisplay small {
+            display: block;
+            margin-top: 15px;
+            color: #666;
             font-style: italic;
+        }
+
+        /* Animation classes */
+        .fade-in {
+            animation: fadeIn 0.5s ease-in;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Responsive design */
+        @media (max-width: 480px) {
+            .container {
+                padding: 25px;
+            }
+
+            h1 {
+                font-size: 2em;
+            }
+
+            .button-container {
+                flex-direction: column;
+            }
+
+            button {
+                width: 100%;
+                justify-content: center;
+            }
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <h1>Feeling Movie Quotes</h1>
-        <p>Type a feeling and get a related movie quote</p>
-        <input type="text" id="feelingInput" placeholder="Enter a feeling...">
-        <div>
-            <button id="getQuoteBtn">Get Quote</button>
-            <button id="randomQuoteBtn">Random Quote</button>
+        <h1>Movie Mood Quotes</h1>
+        <p>How are you feeling today? Let's find a movie quote that matches your mood!</p>
+        <div class="input-container">
+            <input type="text" 
+                   id="feelingInput" 
+                   placeholder="Enter your feeling..."
+                   autocomplete="off"
+                   spellcheck="true">
+        </div>
+        <div class="button-container">
+            <button id="getQuoteBtn">
+                <i class="fas fa-search"></i>
+                Find Quote
+            </button>
+            <button id="randomQuoteBtn">
+                <i class="fas fa-random"></i>
+                Random Quote
+            </button>
         </div>
         <div id="quoteDisplay"></div>
     </div>
+
+    <!-- Load the data first -->
+    <script src="data.js"></script>
+    <!-- Then load the functions that use the data -->
+    <script src="quotes.js"></script>
+    <!-- Add animation to quote display -->
     <script>
-        const quotes = {
-            happy: [
-                "Happiness can be found even in the darkest of times, if one only remembers to turn on the light. - Harry Potter",
-                "The greatest thing you'll ever learn is just to love and be loved in return. - Moulin Rouge"
-            ],
-            sad: [
-                "You have to let it all go, Neo. Fear, doubt, and disbelief. Free your mind. - The Matrix",
-                "Some people can't believe in themselves until someone else believes in them first. - Good Will Hunting"
-            ],
-            angry: [
-                "Roads? Where we're going, we don't need roads. - Back to the Future",
-                "Say 'hello' to my little friend! - Scarface"
-            ],
-            love: [
-                "To me, you are perfect. - Love Actually",
-                "I'm also just a girl, standing in front of a boy, asking him to love her. - Notting Hill"
-            ]
-        };
-    
-        function getQuote() {
-            const feeling = document.getElementById('feelingInput').value.toLowerCase();
-            const display = document.getElementById('quoteDisplay');
-            if (quotes[feeling] && quotes[feeling].length > 0) {
-                const quote = quotes[feeling][Math.floor(Math.random() * quotes[feeling].length)];
-                display.innerHTML = `<p>\"${quote}\"</p>`;
-            } else {
-                display.innerHTML = `<p>No quotes found for that feeling. Try another one!</p>`;
+        document.getElementById('getQuoteBtn').addEventListener('click', () => {
+            getQuote();
+            animateQuote();
+        });
+        
+        document.getElementById('randomQuoteBtn').addEventListener('click', () => {
+            getRandomQuote();
+            animateQuote();
+        });
+        
+        document.getElementById('feelingInput').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                getQuote();
+                animateQuote();
             }
+        });
+
+        function animateQuote() {
+            const quoteDisplay = document.getElementById('quoteDisplay');
+            quoteDisplay.classList.remove('fade-in');
+            void quoteDisplay.offsetWidth; // Trigger reflow
+            quoteDisplay.classList.add('fade-in');
         }
-    
-        function getRandomQuote() {
-            const allQuotes = Object.values(quotes).flat();
-            const quote = allQuotes[Math.floor(Math.random() * allQuotes.length)];
-            document.getElementById('quoteDisplay').innerHTML = `<p>\"${quote}\"</p>`;
-        }
-    
-        document.getElementById('getQuoteBtn').addEventListener('click', getQuote);
-        document.getElementById('randomQuoteBtn').addEventListener('click', getRandomQuote);
     </script>
-    
 </body>
 </html>
